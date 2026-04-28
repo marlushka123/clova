@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import emailjs from "@emailjs/browser";
 
 // Default images
 
@@ -243,20 +242,45 @@ const AppLayout: React.FC = () => {
     e.preventDefault();
     setFormSubmitting(true);
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    const brevoApiKey = import.meta.env.VITE_BREVO_API_KEY;
+    const recipientEmail = import.meta.env.VITE_RECIPIENT_EMAIL || "odgii405@gmail.com";
+    const senderEmail = import.meta.env.VITE_BREVO_SENDER_EMAIL || "no-reply@clovamed.com";
+    const senderName = import.meta.env.VITE_BREVO_SENDER_NAME || "Clova Med Contact Form";
 
     try {
-      const templateParams = {
-        from_name: contactForm.name,
-        from_email: contactForm.email,
-        company: contactForm.company || "Not specified",
-        message: contactForm.message,
-        to_email: import.meta.env.VITE_RECIPIENT_EMAIL || "odgii405@gmail.com",
-      };
+      const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+        method: "POST",
+        headers: {
+          "accept": "application/json",
+          "api-key": brevoApiKey,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          sender: { 
+            name: senderName, 
+            email: senderEmail 
+          },
+          to: [{ email: recipientEmail }],
+          subject: `New Inquiry from ${contactForm.name}`,
+          htmlContent: `
+            <div style="font-family: sans-serif; padding: 20px; color: #1a1a2e;">
+              <h2 style="color: #1a1a2e; border-bottom: 2px solid #1a1a2e; padding-bottom: 10px;">New Contact Inquiry</h2>
+              <p><strong>Name:</strong> ${contactForm.name}</p>
+              <p><strong>Email:</strong> ${contactForm.email}</p>
+              <p><strong>Company:</strong> ${contactForm.company || "Not specified"}</p>
+              <p><strong>Message:</strong></p>
+              <div style="background: #f8f8fa; padding: 15px; border-radius: 10px; margin-top: 10px;">
+                ${contactForm.message.replace(/\n/g, '<br/>')}
+              </div>
+            </div>
+          `
+        }),
+      });
 
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to send email");
+      }
 
       setFormSubmitted(true);
       setTimeout(() => setFormSubmitted(false), 3000);
@@ -267,8 +291,8 @@ const AppLayout: React.FC = () => {
         message: "",
       });
     } catch (err) {
-      console.error("EmailJS Error:", err);
-      alert("Failed to send message. Please check the EmailJS configuration.");
+      console.error("Brevo Error:", err);
+      alert("Failed to send message. Please check the email configuration.");
     } finally {
       setFormSubmitting(false);
     }
