@@ -883,7 +883,6 @@ const AppLayout: React.FC = () => {
               Exclusive Distribution
             </p>
             <h2 className="text-4xl lg:text-5xl font-bold text-[#1a1a2e] mb-6">
-            <h2 className="text-4xl lg:text-5xl font-bold text-[#1a1a2e] mb-6">
               Our Brands
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
