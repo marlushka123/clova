@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 
 // Default images
 
@@ -347,38 +348,65 @@ const AppLayout: React.FC = () => {
 
   // Product Card Component
   const ProductCard = ({ product }: { product: typeof productsData[0] }) => {
+    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const onSelect = useCallback(() => {
+      if (!emblaApi) return;
+      setCurrentImageIndex(emblaApi.selectedScrollSnap());
+    }, [emblaApi]);
+
+    useEffect(() => {
+      if (!emblaApi) return;
+      onSelect();
+      emblaApi.on("select", onSelect);
+      emblaApi.on("reInit", onSelect);
+    }, [emblaApi, onSelect]);
+
+    const scrollTo = useCallback(
+      (index: number) => emblaApi && emblaApi.scrollTo(index),
+      [emblaApi],
+    );
 
     return (
       <div className="group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col border border-gray-100">
         <div className="relative aspect-[4/5] overflow-hidden bg-gray-50">
-          <img
-            src={product.images[currentImageIndex]}
-            alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
+          <div className="h-full overflow-hidden" ref={emblaRef}>
+            <div className="flex h-full">
+              {product.images.map((img, idx) => (
+                <div key={idx} className="relative flex-[0_0_100%] min-w-0 h-full">
+                  <img
+                    src={img}
+                    alt={`${product.name} - image ${idx + 1}`}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
           
           {/* Image toggles if multiple images exist */}
           {product.images.length > 1 && (
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
               {product.images.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={(e) => {
                     e.stopPropagation();
-                    setCurrentImageIndex(idx);
+                    scrollTo(idx);
                   }}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
                     currentImageIndex === idx 
                       ? "w-6 bg-[#1a1a2e]" 
-                      : "bg-gray-300 hover:bg-gray-400"
+                      : "bg-gray-300/80 hover:bg-gray-400"
                   }`}
+                  aria-label={`Go to slide ${idx + 1}`}
                 />
               ))}
             </div>
           )}
 
-          <div className="absolute top-6 right-6">
+          <div className="absolute top-6 right-6 z-10">
             <span className="px-4 py-2 bg-white/90 backdrop-blur-md rounded-full text-[#1a1a2e] font-bold text-sm shadow-sm">
               {product.price}
             </span>
