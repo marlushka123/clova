@@ -99,8 +99,8 @@ const productsData = [
     price: "185,000 ₮",
     description: "Advanced cellular rejuvenation supplement formulated with high-purity NMN and NAD+ to support longevity and metabolic health.",
     images: [
-      "/images/products/1. MITO DUO (NMN+NAD)_web.jpg",
-      "/images/products/1.1 MITO DUO (NMN NAD @)_web.jpg"
+      "/images/products/1_mito_duo_web.jpg",
+      "/images/products/1_1_mito_duo_web.jpg"
     ]
   },
   {
@@ -108,7 +108,7 @@ const productsData = [
     name: "RMDS-A",
     price: "245,000 ₮",
     description: "Professional-grade medical solution designed for advanced aesthetic treatments and skin rejuvenation.",
-    images: ["/images/products/2. RMDS-A_web.jpg"]
+    images: ["/images/products/2_rmds_a_web.jpg"]
   },
   {
     id: 3,
@@ -116,8 +116,8 @@ const productsData = [
     price: "315,000 ₮",
     description: "Next-generation exosome therapy that promotes rapid skin regeneration and collagen production at a cellular level.",
     images: [
-      "/images/products/3. XOMAGE EXOSOME_web.jpg",
-      "/images/products/3.1 XOMAGE EXOSOME_web.jpg"
+      "/images/products/3_xomage_exosome_web.jpg",
+      "/images/products/3_1_xomage_exosome_web.jpg"
     ]
   },
   {
@@ -125,14 +125,14 @@ const productsData = [
     name: "Xomage Mask",
     price: "48,000 ₮",
     description: "Intensive post-procedure soothing mask that accelerates healing and provides deep hydration to stressed skin.",
-    images: ["/images/products/4.1 Xomage mask_web.jpg"]
+    images: ["/images/products/4_1_xomage_mask_web.jpg"]
   },
   {
     id: 5,
     name: "Xomage Bundle",
     price: "520,000 ₮",
     description: "Comprehensive aesthetic care bundle featuring the complete Xomage professional line for maximum results.",
-    images: ["/images/products/5.Xomage bundle_web.jpg"]
+    images: ["/images/products/5_xomage_bundle_web.jpg"]
   }
 ];
 
