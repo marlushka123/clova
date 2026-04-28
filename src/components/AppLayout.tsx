@@ -97,8 +97,15 @@ const productsData = [
   {
     id: 1,
     name: "MITO DUO (NMN+NAD)",
-    price: "185,000 ₮",
-    description: "Advanced cellular rejuvenation supplement formulated with high-purity NMN and NAD+ to support longevity and metabolic health.",
+    price: "720,000 ₮",
+    description: `Advanced skin revitalization formula combining NMN + NAD Activator to support cellular energy, skin renewal, and visible radiance. Designed to improve hydration, elasticity, and tired-looking skin for a healthier, more refreshed appearance.
+
+Benefits:
+• Deep hydration
+• Brighter skin tone
+• Improved elasticity
+• Smoother texture
+• Youthful glow`,
     images: [
       "/images/products/1_mito_duo_web.jpg",
       "/images/products/1_1_mito_duo_web.jpg"
@@ -106,16 +113,40 @@ const productsData = [
   },
   {
     id: 2,
-    name: "RMDS-A",
-    price: "245,000 ₮",
-    description: "Professional-grade medical solution designed for advanced aesthetic treatments and skin rejuvenation.",
+    name: "RMDA-S",
+    price: "479,000 ₮",
+    description: `Advanced regenerative skin booster formulated with PDRN, L-Carnitine, Hyaluronic Acid, Growth Factor(EGF, FGF, Peptide complex), and revitalizing active ingredients to support skin repair, hydration, contour care, and collagen renewal. Designed to improve texture, firmness, and overall skin vitality for a smoother, healthier appearance.
+
+Benefits:
+• Skin recovery support
+• Deep hydration
+• Improved firmness & elasticity
+• Smoother skin texture
+• Brighter complexion
+• Helps refine facial contours`,
     images: ["/images/products/2_rmds_a_web.jpg"]
   },
   {
     id: 3,
-    name: "XOMAGE EXOSOME",
-    price: "315,000 ₮",
-    description: "Next-generation exosome therapy that promotes rapid skin regeneration and collagen production at a cellular level.",
+    name: "ZISHEL XOMAGE EXOSOME",
+    price: "1,090,000 ₮",
+    description: `Advanced regenerative exosome formula featuring 10 Billion Exosomes with a synergistic blend of Growth Factors, Peptide Complex, Sodium Hyaluronate, and revitalizing active ingredients to support visible skin renewal, hydration, and scalp vitality.
+
+Developed for face, body, scalp, and hair care, the lyophilized powder formula is designed to help improve skin texture, firmness, brightness, and recovery while supporting healthier-looking skin and hair environments.
+
+Available Variants:
+• XOMAGE S – with Panthenol support
+• XOMAGE H – with Biotin support
+
+Key Benefits:
+• Supports skin rejuvenation & vitality
+• Helps brighten dull-looking skin
+• Improves firmness & elasticity
+• Smooths texture and refines appearance
+• Supports post-treatment recovery care
+• Helps calm stressed skin appearance
+• Supports scalp and hair care routines
+• Promotes healthy glow and refreshed look`,
     images: [
       "/images/products/3_xomage_exosome_web.jpg",
       "/images/products/3_1_xomage_exosome_web.jpg"
@@ -123,16 +154,48 @@ const productsData = [
   },
   {
     id: 4,
-    name: "Xomage Mask",
-    price: "48,000 ₮",
-    description: "Intensive post-procedure soothing mask that accelerates healing and provides deep hydration to stressed skin.",
+    name: "ZISHEL XOMAGE MASK",
+    price: "28,000 ₮",
+    description: `Advanced recovery mask powered by Purimasome™ Exosome Technology, PDRN (Sodium DNA), Peptide Complex, Niacinamide, Hyaluronic Acid, CICA, Centella Asiatica, and botanical extracts to support hydration, skin renewal, soothing care, and visible radiance.
+
+Developed for post-treatment recovery and intensive homecare, the formula helps calm sensitivity, replenish moisture, and improve skin vitality while supporting firmness and smoother texture.
+
+Key Benefits:
+• Supports skin regeneration & firmness
+• Intensive hydration and moisture barrier care
+• Helps soothe redness and sensitivity
+• Brightens dull, tired-looking skin
+• Improves smoothness and elasticity
+• Helps reduce appearance of fine lines
+• Refreshing recovery care after treatments
+• Promotes healthy, radiant glow`,
     images: ["/images/products/4_1_xomage_mask_web.jpg"]
   },
   {
     id: 5,
-    name: "Xomage Bundle",
-    price: "520,000 ₮",
-    description: "Comprehensive aesthetic care bundle featuring the complete Xomage professional line for maximum results.",
+    name: "XOMAGE BUNDLE",
+    price: "1,990,000 ₮",
+    description: `Includes: 2 × ZISHEL XOMAGE EXOSOME + 5 × XOMAGE MASK
+Retail Value: 2,320,000₮
+Bundle Price: 1,990,000₮
+
+Advanced regenerative bundle designed for intensive skin recovery, hydration, and visible rejuvenation. Combines professional-grade exosome care with recovery masks to support smoother texture, brighter tone, and post-treatment comfort. Ideal for clinic recovery programs or premium homecare support.
+
+Benefits:
+• Intensive skin renewal support
+• Deep hydration & barrier care
+• Helps improve firmness & elasticity
+• Brighter, healthier-looking tone
+• Supports post-treatment recovery
+• Helps calm stressed or tired skin
+• Enhances glow and smoothness
+• Premium value savings package
+
+Best For:
+• After aesthetic treatments
+• Dull / tired-looking skin
+• Dry or stressed skin
+• Anti-aging support care`,
     images: ["/images/products/5_xomage_bundle_web.jpg"]
   }
 ];
@@ -417,7 +480,7 @@ const AppLayout: React.FC = () => {
           <h3 className="text-xl font-bold text-[#1a1a2e] mb-3 group-hover:text-[#2a2a4e] transition-colors">
             {product.name}
           </h3>
-          <p className="text-gray-500 text-sm leading-relaxed mb-6 flex-1">
+          <p className="text-gray-500 text-sm leading-relaxed mb-6 flex-1 whitespace-pre-line">
             {product.description}
           </p>
           <button 
