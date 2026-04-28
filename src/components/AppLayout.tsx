@@ -413,6 +413,7 @@ const AppLayout: React.FC = () => {
   const ProductCard = ({ product }: { product: typeof productsData[0] }) => {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [isExpanded, setIsExpanded] = useState(false);
 
     const onSelect = useCallback(() => {
       if (!emblaApi) return;
@@ -480,12 +481,33 @@ const AppLayout: React.FC = () => {
           <h3 className="text-xl font-bold text-[#1a1a2e] mb-3 group-hover:text-[#2a2a4e] transition-colors">
             {product.name}
           </h3>
-          <p className="text-gray-500 text-sm leading-relaxed mb-6 flex-1 whitespace-pre-line">
-            {product.description}
-          </p>
+          
+          <div 
+            className={`text-gray-500 text-sm leading-relaxed mb-4 transition-all duration-500 overflow-hidden ${isExpanded ? "max-h-[1000px]" : "max-h-[72px]"}`}
+          >
+            <p className={`whitespace-pre-line ${!isExpanded ? "line-clamp-3" : ""}`}>
+              {product.description}
+            </p>
+          </div>
+
+          <button 
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="flex items-center gap-1 text-[#1a1a2e] text-xs font-bold mb-6 hover:opacity-70 transition-opacity"
+          >
+            {isExpanded ? "Show Less" : "Read More"}
+            <svg 
+              className={`w-3 h-3 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`} 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
           <button 
             onClick={() => scrollToSection("contact")}
-            className="w-full py-3 rounded-xl border border-[#1a1a2e] text-[#1a1a2e] font-semibold text-sm hover:bg-[#1a1a2e] hover:text-white transition-all duration-300"
+            className="w-full py-3 rounded-xl border border-[#1a1a2e] text-[#1a1a2e] font-semibold text-sm hover:bg-[#1a1a2e] hover:text-white transition-all duration-300 mt-auto"
           >
             Inquire Now
           </button>
