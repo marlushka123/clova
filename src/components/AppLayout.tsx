@@ -92,6 +92,51 @@ const brandsData = [
   },
 ];
 
+// Products data
+const productsData = [
+  {
+    id: 1,
+    name: "MITO DUO (NMN+NAD)",
+    price: "185,000 ₮",
+    description: "Advanced cellular rejuvenation supplement formulated with high-purity NMN and NAD+ to support longevity and metabolic health.",
+    images: [
+      "/images/products/1. MITO DUO (NMN+NAD)_web.jpg",
+      "/images/products/1.1 MITO DUO (NMN NAD @)_web.jpg"
+    ]
+  },
+  {
+    id: 2,
+    name: "RMDS-A",
+    price: "245,000 ₮",
+    description: "Professional-grade medical solution designed for advanced aesthetic treatments and skin rejuvenation.",
+    images: ["/images/products/2. RMDS-A_web.jpg"]
+  },
+  {
+    id: 3,
+    name: "XOMAGE EXOSOME",
+    price: "315,000 ₮",
+    description: "Next-generation exosome therapy that promotes rapid skin regeneration and collagen production at a cellular level.",
+    images: [
+      "/images/products/3. XOMAGE EXOSOME_web.jpg",
+      "/images/products/3.1 XOMAGE EXOSOME_web.jpg"
+    ]
+  },
+  {
+    id: 4,
+    name: "Xomage Mask",
+    price: "48,000 ₮",
+    description: "Intensive post-procedure soothing mask that accelerates healing and provides deep hydration to stressed skin.",
+    images: ["/images/products/4.1 Xomage mask_web.jpg"]
+  },
+  {
+    id: 5,
+    name: "Xomage Bundle",
+    price: "520,000 ₮",
+    description: "Comprehensive aesthetic care bundle featuring the complete Xomage professional line for maximum results.",
+    images: ["/images/products/5.Xomage bundle_web.jpg"]
+  }
+];
+
 // Timeline milestones
 const milestones = [
   {
@@ -165,6 +210,7 @@ const AppLayout: React.FC = () => {
         "hero",
         "about",
         "brands",
+        "products",
         "partnership",
         "team",
         "contact",
@@ -238,6 +284,10 @@ const AppLayout: React.FC = () => {
       label: "Brands",
     },
     {
+      id: "products",
+      label: "Products",
+    },
+    {
       id: "partnership",
       label: "Partnership",
     },
@@ -270,6 +320,64 @@ const AppLayout: React.FC = () => {
       className={className}
     />
   );
+
+  // Product Card Component
+  const ProductCard = ({ product }: { product: typeof productsData[0] }) => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    return (
+      <div className="group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col border border-gray-100">
+        <div className="relative aspect-[4/5] overflow-hidden bg-gray-50">
+          <img
+            src={product.images[currentImageIndex]}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          
+          {/* Image toggles if multiple images exist */}
+          {product.images.length > 1 && (
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+              {product.images.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentImageIndex(idx);
+                  }}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    currentImageIndex === idx 
+                      ? "w-6 bg-[#1a1a2e]" 
+                      : "bg-gray-300 hover:bg-gray-400"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+
+          <div className="absolute top-6 right-6">
+            <span className="px-4 py-2 bg-white/90 backdrop-blur-md rounded-full text-[#1a1a2e] font-bold text-sm shadow-sm">
+              {product.price}
+            </span>
+          </div>
+        </div>
+        
+        <div className="p-8 flex flex-col flex-1">
+          <h3 className="text-xl font-bold text-[#1a1a2e] mb-3 group-hover:text-[#2a2a4e] transition-colors">
+            {product.name}
+          </h3>
+          <p className="text-gray-500 text-sm leading-relaxed mb-6 flex-1">
+            {product.description}
+          </p>
+          <button 
+            onClick={() => scrollToSection("contact")}
+            className="w-full py-3 rounded-xl border border-[#1a1a2e] text-[#1a1a2e] font-semibold text-sm hover:bg-[#1a1a2e] hover:text-white transition-all duration-300"
+          >
+            Inquire Now
+          </button>
+        </div>
+      </div>
+    );
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-gray-100 text-[#1a1a2e] font-sans antialiased">
       {/* Navigation */}
@@ -675,6 +783,29 @@ const AppLayout: React.FC = () => {
                   </span>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Products Section */}
+      <section id="products" className="py-24 lg:py-32 bg-[#f8f8fa]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <p className="text-sm tracking-[0.2em] text-gray-400 uppercase mb-4">
+              Featured Products
+            </p>
+            <h2 className="text-4xl lg:text-5xl font-bold text-[#1a1a2e] mb-6">
+              Our Medical Solutions
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Discover our range of premium pharmaceutical and medical aesthetic products.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {productsData.map((product) => (
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
         </div>
@@ -1108,7 +1239,7 @@ const AppLayout: React.FC = () => {
             <div>
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-3">
-                {["About", "Brands", "Partnership", "Team", "Contact"].map(
+                {["About", "Brands", "Products", "Partnership", "Team", "Contact"].map(
                   (item) => (
                     <li key={item}>
                       <button
